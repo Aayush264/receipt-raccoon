@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Receipt Raccoon",
   description:
     "Organize your receipts, bills, and warranties in one place.",

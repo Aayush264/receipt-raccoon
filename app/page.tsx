@@ -206,33 +206,40 @@ export default function Home() {
   const backupFileInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // Set the current local calendar date only after hydration to avoid
-    // Next.js prerender errors from reading the clock during render.
+  let cancelled = false;
+
+  function getLocalTodayISO() {
     const now = new Date();
-    const localToday = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
-    setTodayISO(localToday);
 
-    let cancelled = false;
+    return `${now.getFullYear()}-${String(
+      now.getMonth() + 1
+    ).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+  }
 
-    getReceipts()
-      .then((items) => {
-        if (!cancelled) setReceipts(items);
-      })
-      .catch(() => {
-        if (!cancelled) {
-          setErrorMessage(
-            "Could not open local storage. Try refreshing this page."
-          );
-        }
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
+  getReceipts()
+    .then((items) => {
+      if (!cancelled) {
+        setReceipts(items);
+      }
+    })
+    .catch(() => {
+      if (!cancelled) {
+        setErrorMessage(
+          "Could not open local storage. Try refreshing this page."
+        );
+      }
+    })
+    .finally(() => {
+      if (!cancelled) {
+        setTodayISO(getLocalTodayISO());
+        setLoading(false);
+      }
+    });
 
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  return () => {
+    cancelled = true;
+  };
+}, []);
 
   const realReceipts = useMemo(
     () => receipts.map((receipt) => toDisplayReceipt(receipt, todayISO)),
@@ -909,7 +916,7 @@ export default function Home() {
               <div className="add-form-heading">
                 <div>
                   <p className="eyebrow">NEW DOCUMENT</p>
-                  <h2>Let's save this bill</h2>
+                  <h2>Let&apos;s save this bill</h2>
                   <p>
                     Use Read with AI to fill in details, then review everything
                     against the original bill before saving.
