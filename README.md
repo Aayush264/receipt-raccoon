@@ -6,6 +6,23 @@ Receipt Raccoon is a local-first receipt and warranty organizer that helps you s
 
 Built with Next.js, TypeScript, and open-weight AI running locally through Ollama and Gemma 3.
 
+## 📸 Screenshots
+
+### Dashboard
+See your receipt vault at a glance.
+
+![Receipt Raccoon dashboard](screenshots/Dashboard.png)
+
+### My Documents
+Browse and search your saved bills.
+
+![Receipt Raccoon documents](screenshots/my-doc.png)
+
+### Warranty Tracker
+Keep track of warranty expiry dates.
+
+![Receipt Raccoon warranty tracker](screenshots/warranty-tracker.png)
+
 ## ✨ Features
 
 - **AI-Powered Receipt Reading:** Extract purchase information from supported receipt images and review the details before saving.
