@@ -23,6 +23,23 @@ Keep track of warranty expiry dates.
 
 ![Receipt Raccoon warranty tracker](screenshots/warranty-tracker.png)
 
+## 🌐 Live Demo
+
+Try Receipt Raccoon online:
+
+https://receipt-raccoon-beige.vercel.app/
+
+The hosted demo supports receipt management, document storage,
+warranty tracking, and backups.
+
+### Local AI Features
+
+AI receipt reading and natural-language receipt search require
+Ollama and the Gemma model running locally.
+
+To use the full AI functionality, follow the setup instructions
+in this README and run the application on your computer.
+
 ## ✨ Features
 
 - **AI-Powered Receipt Reading:** Extract purchase information from supported receipt images and review the details before saving.
