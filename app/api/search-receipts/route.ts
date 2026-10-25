@@ -22,6 +22,21 @@ const searchSchema = {
 };
 
 export async function POST(request: Request) {
+
+    const ollamaBaseUrl = process.env.OLLAMA_BASE_URL
+    ?.trim()
+    .replace(/\/+$/, "");
+
+  if (process.env.VERCEL && !ollamaBaseUrl) {
+    return Response.json(
+      {
+        error:
+          "AI search is available when running Receipt Raccoon locally with Ollama. The hosted demo supports receipt management, but AI search is not enabled here.",
+      },
+      { status: 503 }
+    );
+  }
+
   let body: {
     query?: unknown;
     receipts?: unknown;
@@ -109,7 +124,7 @@ export async function POST(request: Request) {
 
   try {
     const ollamaResponse = await fetch(
-      "http://127.0.0.1:11434/api/chat",
+      `${ollamaBaseUrl ?? "http://127.0.0.1:11434"}/api/chat`,
       {
         method: "POST",
         headers: {

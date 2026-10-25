@@ -21,6 +21,21 @@ const receiptSchema = {
 
 export async function POST(request: Request) {
   // Step 1: Read the image sent by our website.
+
+    const ollamaBaseUrl = process.env.OLLAMA_BASE_URL
+    ?.trim()
+    .replace(/\/+$/, "");
+
+  if (process.env.VERCEL && !ollamaBaseUrl) {
+    return Response.json(
+      {
+        error:
+          "AI receipt reading is available when running Receipt Raccoon locally with Ollama. The hosted demo supports document management, but AI is not enabled here.",
+      },
+      { status: 503 }
+    );
+  }
+
   let body: { imageBase64?: string; mimeType?: string };
 
   try {
@@ -73,7 +88,7 @@ export async function POST(request: Request) {
 
   try {
     ollamaResponse = await fetch(
-      "http://127.0.0.1:11434/api/chat",
+      `${ollamaBaseUrl ?? "http://127.0.0.1:11434"}/api/chat`,
       {
         method: "POST",
         headers: {
